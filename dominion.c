@@ -643,7 +643,8 @@ int getCost(int cardNumber)
   return -1;
 }
 
-int adventurer(struct gameState *state, int z, int currentPlayer, int nextPlayer, int drawntreasure, int cardDrawn, int tempHand[]) {
+int adventurerCard(struct gameState *state, int currentPlayer, int nextPlayer, int drawntreasure, int cardDrawn, int temphand[]) {
+  int z = 0;
   while(drawntreasure<2){
 	if (state->deckCount[currentPlayer] <1){//if the deck is empty we need to shuffle discard and add to deck
 	  shuffle(currentPlayer, state);
@@ -665,8 +666,9 @@ int adventurer(struct gameState *state, int z, int currentPlayer, int nextPlayer
       return 0;
 }
 
- int council_room(int i, int currentPlayer, struct gameState *state, int handPos) {
-    //+4 Cards
+ int council_roomCard(int currentPlayer, struct gameState *state, int handPos) {
+    int i;
+	//+4 Cards
       for (i = 0; i < 4; i++)
 	{
 	  drawCard(currentPlayer, state);
@@ -690,7 +692,9 @@ int adventurer(struct gameState *state, int z, int currentPlayer, int nextPlayer
       return 0;
   }
   
-int feast(struct gameState *state, int i, int x, int currentPlayer, int temphand[], int choice1) {
+int feastCard(struct gameState *state, int currentPlayer, int temphand[], int choice1) {
+  int i;
+  int x;
   //gain card with cost up to 5
       //Backup hand
       for (i = 0; i <= state->handCount[currentPlayer]; i++){
@@ -744,7 +748,9 @@ int feast(struct gameState *state, int i, int x, int currentPlayer, int temphand
       return 0;	
 }
 
-int mine(struct gameState *state, int j, int i, int choice1, int choice2, int currentPlayer) {
+int mineCard(struct gameState *state, int choice1, int choice2, int currentPlayer, int handPos) {
+  int i;
+  int j;
   j = state->hand[currentPlayer][choice1];  //store card we will trash
 
       if (state->hand[currentPlayer][choice1] < copper || state->hand[currentPlayer][choice1] > gold)
@@ -780,7 +786,9 @@ int mine(struct gameState *state, int j, int i, int choice1, int choice2, int cu
       return 0;
 }
 
-int remodel(struct gameState *state, int j, int i, int choice1, int choice2, int currentPlayer) {
+int remodelCard(struct gameState *state, int choice1, int choice2, int currentPlayer, int handPos) {
+	int i;
+	int j;
   j = state->hand[currentPlayer][choice1];  //store card we will trash
 
       if ( (getCost(state->hand[currentPlayer][choice1]) + 2) > getCost(choice2) )
@@ -807,7 +815,7 @@ int remodel(struct gameState *state, int j, int i, int choice1, int choice2, int
       return 0;	
 }
 
-int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState state, int handPos, int *bonus)
+int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState *state, int handPos, int *bonus)
 {
   int i;
   int j;
@@ -830,18 +838,17 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
   switch( card ) 
     {
     case adventurer:
-      return(adventurer(state, z, currentPlayer, nextPlayer, drawntreasure, cardDrawn, tempHand));
+      return(adventurerCard(state, currentPlayer, nextPlayer, drawntreasure, cardDrawn, temphand));
     case council_room:
-      return(council_room(i, currentPlayer, gameState state, handPos));	
+      return(council_roomCard(currentPlayer, state, handPos));	
     case feast:
-      feast(state, i, x, nextPlayer, temphand[], choice2);
-	  break;
+      return(feastCard(state, nextPlayer, temphand, choice2));
     case gardens:
       return -1;
     case mine:
-      return(mine(state,j,i,choice1,choice2,currentPlayer));
+      return(mineCard(state, choice1, choice2, currentPlayer, handPos));
     case remodel:
-      return (remodel(state, j, i, choice1, choice2, currentPlayer));
+      return (remodelCard(state, choice1, choice2, currentPlayer, handPos));
     case smithy:
       //+3 Cards
       for (i = 0; i < 3; i++)
