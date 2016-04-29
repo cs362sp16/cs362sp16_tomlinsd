@@ -1,0 +1,2 @@
+I found a bug in the embargo card, it would not actually update the player's money, he is suppose'd to get +2 coins but it never
+actually happens.
