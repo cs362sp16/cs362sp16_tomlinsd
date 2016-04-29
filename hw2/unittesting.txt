@@ -1,0 +1,6 @@
+The process of unit testing was not too hard. I mainly stuck with cards that would be easy to test, since there is no line coverage
+requirement. I mainly stuck with cards that would allow me to test them just by viewing the player's card count. If it wasn't changed
+like it was supposed to then I knew something was wrong with the card.
+
+After all of the tests are ran I get a 25.94% line coverage. That's not a very high percent which means there's still plenty of bugs
+to be found in this code. Some of the tests barely had any line coverage at all, like with the cardtest 3 which tests the embargo card.
