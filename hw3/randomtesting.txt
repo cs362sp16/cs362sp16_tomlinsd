@@ -1,0 +1,5 @@
+Overall the random tests definetly had more coverage than the unit tests. It probably helps that they are able to run hundreds of times
+with different variables each time. I managed to cover 100% of the adventurerCard. I used the gdb debugger to go through the code to see
+which lines weren't being hit, then I would implement another part to my test that would make that line run. For the embargo card I did
+not check to see if it was trashed after it was played, and I also didn't check to see if the curses functionality worked either,
+as that would take more time!
