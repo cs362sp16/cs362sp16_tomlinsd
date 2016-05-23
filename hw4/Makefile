@@ -82,19 +82,19 @@ randomtestcard2: randomtestcard2.c
 	
 randomtestadventurer.out: randomtestadventurer
 	rm -f randomtestadventurer.out
-	echo "randomtestadventurer testing time" >> randomtestadventurer.out
+	echo "randomtestadventurer random tests" >> randomtestadventurer.out
 	./randomtestadventurer 42 >> randomtestadventurer.out
 	gcov dominion.c -b >> randomtestadventurer.out
 	
 randomtestcard1.out: randomtestcard1
 	rm -f randomtestcard1.out
-	echo "randomtestcard1 testing time" >> randomtestcard1.out
+	echo "randomtestcard1 random tests" >> randomtestcard1.out
 	./randomtestcard1 42 >> randomtestcard1.out
 	gcov dominion.c -b >> randomtestcard1.out
 
 randomtestcard2.out: randomtestcard2
 	rm -f randomtestcard2.out
-	echo "randomtestcard2 testing time" >> randomtestcard2.out
+	echo "randomtestcard2 random tests" >> randomtestcard2.out
 	./randomtestcard2 42 >> randomtestcard2.out
 	gcov dominion.c -b >> randomtestcard2.out
 

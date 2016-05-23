@@ -1,0 +1,9 @@
+My process for extracting the functions from the switch statement was simple. I first created a function that would contain
+the functionality for the adventurer card. Then I relocated the card's functionality from the switch statement to it's new function. In
+order to keep the functionality of the case the same, I had the case return the value of what the new function would return (since each 
+case originally returned a certain integer depending on how it exits). I then added the function declaration to the dominion_helper.h
+file since the cardEffect function was also declared in that file. Afer I finished with this card I repeated this process for the next 
+four cards council_room, feast, mine, and remodel.
+
+After this I compiled the code as playdom, revealing aprox. 100 errors. I went back and edited the code to fix said problems. Most of the
+fixes were spelling mistakes, while one was an accidental removal of a pointer.
