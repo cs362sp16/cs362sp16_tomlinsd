@@ -6,6 +6,7 @@ rngs.o: rngs.h rngs.c
 dominion.o: dominion.h dominion.c rngs.o
 	gcc -c dominion.c -g  $(CFLAGS)
 
+	
 playdom: dominion.o playdom.c
 	gcc -o playdom playdom.c -g dominion.o rngs.o $(CFLAGS)
 
@@ -39,8 +40,13 @@ cardtest3: cardtest3.c dominion.o
 cardtest4: cardtest4.c dominion.o
 	gcc -o cardtest4 cardtest4.c -g dominion.o rngs.o interface.o $(CFLAGS)
 
-
+testdom:
+	gcc -fprofile-arcs -ftest-coverage -Wall -std=c99 dominion.c testdominion.c rngs.c -o testdominion -lm -g
 	
+testdominion.out:
+	./testdominion 42
+	gcov -f -b dominion.c &> testdominion.out
+	cat dominion.c.gcov >> testdominion.out
 
 unittestresults.out: unittest1 unittest2 unittest3 unittest4 cardtest1 cardtest2 cardtest3 cardtest4 playdom
 	./unittest1 >> unittestresults.out

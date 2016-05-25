@@ -643,13 +643,31 @@ int getCost(int cardNumber)
   return -1;
 }
 
-int adventurerCard(struct gameState *state, int currentPlayer) {
-  int z = 1;
-  int temphand[MAX_HAND];
+int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState *state, int handPos, int *bonus)
+{
+  int i;
+  int j;
+  int k;
+  int x;
+  int index;
+  int currentPlayer = whoseTurn(state);
+  int nextPlayer = currentPlayer + 1;
+
+  int tributeRevealedCards[2] = {-1, -1};
+  int temphand[MAX_HAND];// moved above the if statement
+  int drawntreasure=0;
   int cardDrawn;
-  int drawntreasure = 0;
+  int z = 0;// this is the counter for the temp hand
+  if (nextPlayer > (state->numPlayers - 1)){
+    nextPlayer = 0;
+  }
   
-  while(drawntreasure<2){
+	
+  //uses switch to select card and perform actions
+  switch( card ) 
+    {
+    case adventurer:
+      while(drawntreasure<2){
 	if (state->deckCount[currentPlayer] <1){//if the deck is empty we need to shuffle discard and add to deck
 	  shuffle(currentPlayer, state);
 	}
@@ -668,11 +686,9 @@ int adventurerCard(struct gameState *state, int currentPlayer) {
 	z=z-1;
       }
       return 0;
-}
-
- int council_roomCard(int currentPlayer, struct gameState *state, int handPos) {
-    int i;
-	//+4 Cards
+			
+    case council_room:
+      //+4 Cards
       for (i = 0; i < 4; i++)
 	{
 	  drawCard(currentPlayer, state);
@@ -694,14 +710,11 @@ int adventurerCard(struct gameState *state, int currentPlayer) {
       discardCard(handPos, currentPlayer, state, 0);
 			
       return 0;
-  }
-  
-int feastCard(struct gameState *state, int currentPlayer,int choice1) {
-  int i;
-  int x;
-  int temphand[MAX_HAND];
-  
-  for (i = 0; i <= state->handCount[currentPlayer]; i++){
+			
+    case feast:
+      //gain card with cost up to 5
+      //Backup hand
+      for (i = 0; i <= state->handCount[currentPlayer]; i++){
 	temphand[i] = state->hand[currentPlayer][i];//Backup card
 	state->hand[currentPlayer][i] = -1;//Set to nothing
       }
@@ -714,15 +727,14 @@ int feastCard(struct gameState *state, int currentPlayer,int choice1) {
 	if (supplyCount(choice1, state) <= 0){
 	  if (DEBUG)
 	    printf("None of that card left, sorry!\n");
-			return -1;
+
 	  if (DEBUG){
 	    printf("Cards Left: %d\n", supplyCount(choice1, state));
-	  		return -1;
-		}
+	  }
 	}
 	else if (state->coins < getCost(choice1)){
 	  printf("That card is too expensive!\n");
-			return -1;
+
 	  if (DEBUG){
 	    printf("Coins: %d < %d\n", state->coins, getCost(choice1));
 	  }
@@ -750,13 +762,13 @@ int feastCard(struct gameState *state, int currentPlayer,int choice1) {
       }
       //Reset Hand
       			
-      return 0;	
-}
-
-int mineCard(struct gameState *state, int choice1, int choice2, int currentPlayer, int handPos) {
-  int i;
-  int j;
-  j = state->hand[currentPlayer][choice1];  //store card we will trash
+      return 0;
+			
+    case gardens:
+      return -1;
+			
+    case mine:
+      j = state->hand[currentPlayer][choice1];  //store card we will trash
 
       if (state->hand[currentPlayer][choice1] < copper || state->hand[currentPlayer][choice1] > gold)
 	{
@@ -789,12 +801,9 @@ int mineCard(struct gameState *state, int choice1, int choice2, int currentPlaye
 	}
 			
       return 0;
-}
-
-int remodelCard(struct gameState *state, int choice1, int choice2, int currentPlayer, int handPos) {
-	int i;
-	int j;
-  j = state->hand[currentPlayer][choice1];  //store card we will trash
+			
+    case remodel:
+      j = state->hand[currentPlayer][choice1];  //store card we will trash
 
       if ( (getCost(state->hand[currentPlayer][choice1]) + 2) > getCost(choice2) )
 	{
@@ -817,40 +826,8 @@ int remodelCard(struct gameState *state, int choice1, int choice2, int currentPl
 	}
 
 
-      return 0;	
-}
-
-int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState *state, int handPos, int *bonus)
-{
-  int i;
-  int j;
-  int k;
-  int x;
-  int index;
-  int currentPlayer = whoseTurn(state);
-  int nextPlayer = currentPlayer + 1;
-  int temphand[MAX_HAND];
-  int tributeRevealedCards[2] = {-1, -1};
-  
-if (nextPlayer > (state->numPlayers - 1)){
-    nextPlayer = 0;
-  }
-   
-  //uses switch to select card and perform actions
-  switch( card ) 
-    {
-    case adventurer:
-      return(adventurerCard(state, currentPlayer));
-    case council_room:
-      return(council_roomCard(currentPlayer, state, handPos));	
-    case feast:
-      return(feastCard(state, currentPlayer,choice1));
-    case gardens:
-      return -1;
-    case mine:
-      return(mineCard(state, choice1, choice2, currentPlayer, handPos));
-    case remodel:
-      return (remodelCard(state, choice1, choice2, currentPlayer, handPos));
+      return 0;
+		
     case smithy:
       //+3 Cards
       for (i = 0; i < 3; i++)
@@ -1350,5 +1327,6 @@ int updateCoins(int player, struct gameState *state, int bonus)
 
   return 0;
 }
+
 
 //end of dominion.c
