@@ -1,2 +1,3 @@
 I found that with diffDominion if I tested it against my own code it was correct. Which is the first step to a good design.
-Aklthough I could not get it to find the other source dominion. So I could not compare the two different dominion games.
+Although I could not get it to find the other source dominion. So I could not compare the two different dominion games.
+Its apparant that this is not a good way to decide who has the right code. There are very few differences between each dominion game, with only ~60% coverage you can't make a positive decision on who is correct or incorrect.
