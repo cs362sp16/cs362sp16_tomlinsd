@@ -1,0 +1,4 @@
+Another bug detected in the "Village" function (starts line 662). The error was detected by unit + random testing
+which showed that there was an incorrect number of actions being given to the player. 
+The error can be seen in this line (665): state->numActions = state->numActions + 1;
+To fix the error: state->numActions = state->numActions + 2;

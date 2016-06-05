@@ -1,0 +1,4 @@
+Bug detected in function "MinionCard" (starts line 1398). Through unit + random testing it was found that the incorrect
+number of cards were being drawn at one point. The error happens after line 1420.
+The error line: for (i = 0; i < 3; i++)
+to fix the error: for (i = 0; i < 4; i++)
