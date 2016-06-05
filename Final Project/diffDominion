@@ -1,0 +1,23 @@
+#!/bin/bash
+
+echo -n "Enter filepath of second dominion game> "
+read filePath2
+
+echo -n "Enter seed > "
+read seed
+
+make testdom
+
+make all
+make testdom
+
+testdominion $seed > test1
+$filePath2/testdominion $seed > test2
+
+diff --suppress-common-lines test1 test2 > difftester
+ 
+if [[ -s difftester ]] ; then
+   echo "TEST FAILED"
+else
+   echo "TEST SUCCESS"
+fi ;
