@@ -1,0 +1,7 @@
+I found a bug (actually two) in the cardEffect function. Two of the values that are passed to the function feast are incorrect.
+Instead of passing the current player and choice1, somehow they both got incremented to pass nextplayer and  choice2.
+My process of finding this bug was just trolling through gdb. I was watching the game be played through my testDominion function.
+I was checking variables before and after playing cards, and I noticed that weird things were happening when the feast card got played
+(although this was not the only card to be acting weirdly). I decided to look further into it so I inserted breakpoints before and after
+the feastCard function. Viewing all of the variables before and after playing the card, I realized where the error was and switched the
+two values back.
