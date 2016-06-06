@@ -5,3 +5,11 @@ I was checking variables before and after playing cards, and I noticed that weir
 (although this was not the only card to be acting weirdly). I decided to look further into it so I inserted breakpoints before and after
 the feastCard function. Viewing all of the variables before and after playing the card, I realized where the error was and switched the
 two values back.
+Agan's first rule, understand the system, was important here. If I didn't know how the game was suppose'd to be played then I would not
+have known there was erroneous actions happening (and I would've had to scour the program looking for an error).
+The 7th rule, check the plug was also important here. It took me longer than i'd care to admit to find out that the error was with the
+function call. The error was very simple and if I had assumed it was something more complex it could have taken me a whole lot longer to
+figure out.
+The 4th rule, divide and conquer was also helpful here. I was able to find out that the problem was specifically the function call when
+I had breakpoints set just before and just after the cardFeast function is called.
+
