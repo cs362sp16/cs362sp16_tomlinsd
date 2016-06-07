@@ -1,0 +1,7 @@
+Found a bug in the function "Smithy" (on line 649). Through the combination of my unit tests and random testing I found that
+
+the user is not being given enough cards to his hand when the smithy card is played.
+
+The error occurs here: for (i = 0; i < 2; i++)
+
+to fix this error: for (i = 0; i < 3; i++)
