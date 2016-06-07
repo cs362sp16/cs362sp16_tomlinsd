@@ -1,22 +1,4 @@
-input.c:8:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
-     printf ("YOU HAVE FAILED ME.\n");
-     ^
-input.c: In function ‘main’:
-input.c:28:3: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
-   printf("Correct great hall card behavior\n");
-   ^
-Exit code 0
-Traceback (most recent call last):
-  File "GCCDD.py", line 58, in <module>
-    c = mydd.ddmin(deltas)              # Invoke DDMIN
-  File "/nfs/stak/students/t/tomlinsd/computer_science/cs362/finalproject/DD.py", line 713, in ddmin
-    return self.ddgen(c, 1, 0)
-  File "/nfs/stak/students/t/tomlinsd/computer_science/cs362/finalproject/DD.py", line 605, in ddgen
-    outcome = self._dd(c, n)
-  File "/nfs/stak/students/t/tomlinsd/computer_science/cs362/finalproject/DD.py", line 623, in _dd
-    assert tc == self.FAIL or tc == self.UNRESOLVED
-AssertionError
-flip2 ~/computer_science/cs362/finalproject 168% python GCCDD.py
+
 Simplifying failure-inducing input...
 
 sh: line 0: ulimit: stack size: cannot modify limit: Invalid argument
@@ -28,7 +10,7 @@ int failed = 0;
 
 void myassert(int bool) {
   if (!bool) {
-    printf ("YOU HAVE FAILED ME.\n");
+    printf ("ERROR: Incorrect Embargo behavior.\n");
     failed = 1;
   }
 
@@ -40,15 +22,16 @@ int main() {
 
         initializeGame(2, k, 5, &g);
 
-        addCardToHand(0, 16, &g);
+        addCardToHand(0, 22, &g);
         playCard(5, 0, 0, 0, &g);
 
-        int i = numHandCards(&g);
+        int i = countHandCoins(0, &g);
 
+        printf("%d\n", i);
         myassert(i == 6);
 
         if (!failed) {
-                printf("Correct great hall card behavior\n");
+                printf("Correct embargo card behavior\n");
         }
 
         return 0;
@@ -56,12 +39,12 @@ int main() {
 sh: line 0: ulimit: stack size: cannot modify limit: Invalid argument
 input.c: In function ‘myassert’:
 input.c:8:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
-     printf ("YOU HAVE FAILED ME.\n");
+     printf ("ERROR: Incorrect Embargo behavior.\n");
      ^
 input.c: In function ‘main’:
-input.c:28:3: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
-   printf("Correct great hall card behavior\n");
-   ^
+input.c:25:2: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+  printf("%d\n", i);
+  ^
 Exit code 0
 Traceback (most recent call last):
   File "GCCDD.py", line 58, in <module>
@@ -73,4 +56,4 @@ Traceback (most recent call last):
   File "/nfs/stak/students/t/tomlinsd/computer_science/cs362/finalproject/DD.py", line 623, in _dd
     assert tc == self.FAIL or tc == self.UNRESOLVED
 AssertionError
-flip2 ~/computer_science/cs362/finalproject 169%
+flip2 ~/computer_science/cs362/finalproject 184%

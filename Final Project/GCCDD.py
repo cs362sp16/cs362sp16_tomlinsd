@@ -48,7 +48,7 @@ if __name__ == '__main__':
     # Load deltas from `bug.c'
     deltas = []
     index = 1
-    for character in open('cardtest3.c').read():
+    for character in open('cardtest1.c').read():
         deltas.append((index, character))
         index = index + 1
 
