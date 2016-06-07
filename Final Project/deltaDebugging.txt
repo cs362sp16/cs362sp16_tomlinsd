@@ -1,3 +1,5 @@
+
+
 input.c:8:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
      printf ("YOU HAVE FAILED ME.\n");
      ^
