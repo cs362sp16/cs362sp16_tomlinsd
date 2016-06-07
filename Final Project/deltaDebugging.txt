@@ -1,3 +1,7 @@
+For this part of the assignment I decided to do more testing using the delta debugger tools from Proffessor Zeller's website.
+I downloaded the required files (DDY.py, GCCDD.py, MyDD.py) and ran the script using the command: python GCCDD.py.
+I decided to change the source of the deltas to cardtest1.c instead of bug.c  because there was an actual bug in the embargo
+card (which is the card that cardtest1 is testing). The results that I got are below:
 
 Simplifying failure-inducing input...
 
